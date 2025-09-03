@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">My Dashboard</h1>
+
+<a href="{% url 'event_create' %}" class="button is-primary mb-4">+ Create New Event</a>
+
+<table class="table is-fullwidth mt-3">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in events %}
+      <tr>
+        <td><a href="{% url 'event_detail' e.id %}">{{ e.title }}</a></td>
+        <td>{{ e.category.name|default:"Uncategorized" }}</td>
+        <td>{{ e.date|date:"M d, Y H:i" }}</td>
+        <td>
+          <a class="button is-small is-info" href="{% url 'event_detail' e.id %}">View</a>
+          <a class="button is-small is-warning" href="{% url 'event_update' e.id %}">Edit</a>
+          <a class="button is-small is-danger" href="{% url 'event_delete' e.id %}">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="4">You haven’t created any events yet.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

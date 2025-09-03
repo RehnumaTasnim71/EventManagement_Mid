@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="title">All Events</h1>
+
+{% if is_organizer %}
+  <p>Welcome, Organizer! You can manage your events.</p>
+{% endif %}
+
+<table class="table is-fullwidth mt-3">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in events %}
+      <tr>
+        <td><a href="{% url 'event_detail' e.id %}">{{ e.title }}</a></td>
+        <td>
+          {% if e.category %}
+            {{ e.category.name }}
+          {% else %}
+            Uncategorized
+          {% endif %}
+        </td>
+        <td>{{ e.date|date:"M d, Y H:i" }}</td>
+        <td>
+          {% if is_organizer %}
+            <!-- Edit button -->
+            <a class="button is-small is-info" href="{% url 'event_update' e.id %}">Edit</a>
+
+            <!-- Delete button as POST form -->
+            <form action="{% url 'event_delete' e.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="button is-small is-danger">Delete</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="4">No events yet.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

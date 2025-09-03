@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-6">
+    <div class="columns is-centered">
+        <div class="column is-10-tablet is-8-desktop is-6-widescreen">
+            <div class="card" style="box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 1.5rem;">
+
+                <!-- Header -->
+                <header class="card-header">
+                    <p class="card-header-title has-text-centered is-size-4" style="width: 100%;">
+                        My Profile
+                    </p>
+                </header>
+
+                <!-- Card Content -->
+                <div class="card-content">
+                    <div class="columns is-vcentered is-multiline">
+
+                        <!-- Profile Picture Column -->
+                        <div class="column is-full-mobile is-one-quarter-tablet has-text-centered">
+                            <div style="width: 128px; height: 128px; margin: auto; border-radius: 50%; overflow: hidden; border: 2px solid #ddd;">
+                                {% if user.profile_picture %}
+                                    <img src="{{ user.profile_picture.url}}" alt="Profile Picture"
+                                         style="width: 128px; height: 128px; object-fit: cover; display: block;">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/128" alt="No Profile Picture"
+                                         style="width: 128px; height: 128px; object-fit: cover; display: block;">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Profile Info Column -->
+                        <div class="column is-full-mobile is-three-quarters-tablet">
+                            <p class="title is-4">{{ user.username }}</p>
+                            <p class="subtitle is-6"><strong>Email:</strong> {{ user.email }}</p>
+                            <p class="subtitle is-6"><strong>Phone:</strong> {{ user.phone|default:"Not Provided" }}</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Card Footer -->
+                <footer class="card-footer is-flex is-justify-content-center is-flex-wrap-wrap">
+                    <a href="{% url 'profile_edit' %}" class="card-footer-item button is-primary is-light m-1">Edit Profile</a>
+                    <a href="{% url 'change_password' %}" class="card-footer-item button is-warning is-light m-1">Change Password</a>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
