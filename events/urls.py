@@ -6,7 +6,7 @@ from .views import (
     EventUpdateView,
     EventDeleteView,
     RSVPEventView,
-    DashboardView,   # নতুন যোগ
+    DashboardView,  
 )
 
 urlpatterns = [

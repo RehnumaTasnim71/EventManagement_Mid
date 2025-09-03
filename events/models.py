@@ -12,7 +12,7 @@ class Event(models.Model):
     settings.AUTH_USER_MODEL,
     on_delete=models.CASCADE,
     related_name='organized_events',
-    null=True,  # temporary migration er jonne
+    null=True,  
     blank=True
 )
     title = models.CharField(max_length=200)
